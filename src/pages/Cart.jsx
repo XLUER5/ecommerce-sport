@@ -1,4 +1,3 @@
-// pages/CartPage.js
 import React, { useState } from "react";
 import {
   Card,
@@ -13,6 +12,7 @@ import {
   Divider,
   Empty,
   Spin,
+  message,
 } from "antd";
 import {
   DeleteOutlined,
@@ -59,26 +59,21 @@ const Cart = () => {
     return record.productImagen || record.producto?.imagen || "default.jpg";
   };
 
-  // FUNCIÓN ACTUALIZADA: Usar el ID del item del carrito (no del producto)
   const handleQuantityChange = async (record, newQuantity) => {
     if (newQuantity <= 0) {
-      // Usar el ID del item del carrito para remover
       await removeFromCart(record.id);
     } else {
-      // Usar el ID del item del carrito para actualizar
       await updateQuantity(record.id, newQuantity);
     }
   };
 
-  // FUNCIÓN ACTUALIZADA: Remover usando el ID del item del carrito
   const handleRemoveItem = async (record) => {
     await removeFromCart(record.id);
   };
 
   // Manejar éxito del checkout
   const handleCheckoutSuccess = (data) => {
-    // Opcional: redirigir o mostrar mensaje adicional
-    console.log("Pedido confirmado:", data);
+    message.success("Pedido confirmado exitosamente");
   };
 
   const columns = [

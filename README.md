@@ -74,7 +74,7 @@ Los endpoints están configurados en [`src/config/config.js`](src/config/config.
 
 ## Autores
 
-- Luis C. Estrada
+- Luis Carlos Estrada
 
 ---
 

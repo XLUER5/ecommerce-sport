@@ -74,7 +74,6 @@ const Ordenes = () => {
         message.error(errorData.message || "Error al cargar las órdenes");
       }
     } catch (error) {
-      console.error("Error fetching orders:", error);
       message.error("Error al cargar las órdenes");
     } finally {
       setLoading(false);
@@ -145,7 +144,6 @@ const Ordenes = () => {
     setDetailModalVisible(true);
   };
 
-  // Calcular estadísticas
   const totalOrdenes = ordenes.length;
   const totalGastado = ordenes.reduce(
     (sum, orden) => sum + (orden.total || 0),
@@ -411,7 +409,6 @@ const Ordenes = () => {
                           height="50px"
                           style={{ objectFit: "cover", borderRadius: "4px" }}
                           preview={false}
-                          fallback="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMIAAADDCAYAAADQvc6UAAABRWlDQ1BJQ0MgUHJvZmlsZQAAKJFjYGASSSwoyGFhYGDIzSspCnJ3UoiIjFJgf8LAwSDCIMogwMCcmFxc4BgQ4ANUwgCjUcG3awyMIPqyLsis7PPOq3QdDFcvjV3jOD1boQVTPQrgSkktTgbSf4A4LbmgqISBgTEFyFYuLykAsTuAbJEioKOA7DkgdjqEvQHEToKwj4DVhAQ5A9k3gGyB5IxEoBmML4BsnSQk8XQkNtReEOBxcfXxUQg1Mjc0dyHgXNJBSWpFCYh2zi+oLMpMzyhRcASGUqqCZ16yno6CkYGRAQMDKMwhqj/fAIcloxgHQqxAjIHBEugw5sUIsSQpBobtQPdLciLEVJYzMPBHMDBsayhILEqEO4DxG0txmrERhM29nYGBddr//5/DGRjYNRkY/l7////39v///y4Dmn+LgeHANwDrkl1AuO+pmgAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAwqADAAQAAAABAAAAwwAAAAD9b/HnAAAHlklEQVR4Ae3dP3Ik1RnG4W+FgYxN"
                         />
                       </Col>
                       <Col flex="auto">

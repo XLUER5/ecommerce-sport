@@ -63,7 +63,6 @@ const Profile = () => {
     fetchProfile();
   }, []);
 
-  // Efecto separado para manejar la actualización del formulario
   useEffect(() => {
     if (userData && Object.keys(userData).length > 0) {
       const formValues = {
@@ -76,7 +75,6 @@ const Profile = () => {
         email: userData.email || "",
       };
 
-      console.log("Estableciendo valores del formulario:", formValues);
       form.setFieldsValue(formValues);
       setDataLoaded(true);
     }
@@ -107,10 +105,8 @@ const Profile = () => {
         throw new Error("Error al obtener el perfil");
       }
       const data = await response.json();
-      console.log("Datos recibidos:", data);
       setUserData(data);
     } catch (error) {
-      console.error("Error fetching profile:", error);
       message.error("No se pudo cargar el perfil: " + error.message);
     }
   };
@@ -118,7 +114,6 @@ const Profile = () => {
   const handleSave = async (values) => {
     setLoading(true);
     try {
-      // Formatear la fecha antes de enviar
       const formattedValues = {
         nombre: values.nombre.trim(),
         apellidos: values.apellido.trim(),
@@ -157,7 +152,6 @@ const Profile = () => {
       message.success("Perfil actualizado correctamente");
       setEditMode(false);
 
-      // Actualizar userData con los nuevos valores
       setUserData((prev) => ({
         ...prev,
         nombre: values.nombre,
@@ -168,7 +162,6 @@ const Profile = () => {
           : null,
       }));
     } catch (error) {
-      console.error("Error al guardar:", error);
       message.error("Error al guardar los cambios");
     } finally {
       setLoading(false);

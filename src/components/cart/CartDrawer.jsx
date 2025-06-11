@@ -1,4 +1,3 @@
-// components/cart/CartDrawer.js
 import React, { useState } from "react";
 import {
   Drawer,
@@ -50,14 +49,11 @@ const CartDrawer = ({ visible, onClose }) => {
     }
   };
 
-  // Manejar apertura del checkout modal
   const handleOpenCheckout = () => {
     setCheckoutModalVisible(true);
   };
 
-  // Manejar éxito del checkout
   const handleCheckoutSuccess = (data) => {
-    // Cerrar el drawer después de éxito
     onClose();
     setCheckoutModalVisible(false);
   };
@@ -72,7 +68,6 @@ const CartDrawer = ({ visible, onClose }) => {
       }}
     >
       <Row gutter={[12, 12]} align="middle">
-        {/* Imagen del producto */}
         <Col flex="80px">
           <div
             style={{
@@ -383,7 +378,6 @@ const CartDrawer = ({ visible, onClose }) => {
         </Spin>
       </Drawer>
 
-      {/* CheckoutModal */}
       <CheckoutModal
         visible={checkoutModalVisible}
         onClose={() => setCheckoutModalVisible(false)}

@@ -1,4 +1,3 @@
-// components/order/CheckoutModal.js
 import React, { useState, useContext } from "react";
 import {
   Modal,
@@ -100,7 +99,6 @@ const CheckoutModal = ({ visible, onClose, onSuccess }) => {
         message.error(result.message || "Error al confirmar el pedido");
       }
     } catch (error) {
-      console.error("Error confirming order:", error);
       message.error("Error al confirmar el pedido");
     } finally {
       setLoading(false);

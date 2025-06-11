@@ -35,7 +35,6 @@ const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
 
-  // Hook del carrito
   const {
     addToCart,
     getCartItem,
@@ -49,7 +48,6 @@ const Home = () => {
     fetchProducts();
   }, []);
 
-  // Filtrar productos cuando cambie el término de búsqueda
   useEffect(() => {
     if (searchTerm.trim() === "") {
       setFilteredProducts(products);
@@ -273,7 +271,6 @@ const Home = () => {
   return (
     <MainLayout>
       <div style={{ padding: isMobile ? "16px" : "24px" }}>
-        {/* Buscador y filtros */}
         <div style={{ marginBottom: "24px" }}>
           <Row gutter={[16, 16]} align="middle">
             <Col xs={24} md={16}>
@@ -298,7 +295,6 @@ const Home = () => {
           </Row>
         </div>
 
-        {/* Mensaje si no hay productos */}
         {filteredProducts.length === 0 && searchTerm && (
           <div style={{ textAlign: "center", padding: "40px 0" }}>
             <Text type="secondary" style={{ fontSize: "16px" }}>
@@ -307,7 +303,6 @@ const Home = () => {
           </div>
         )}
 
-        {/* Grid de productos */}
         <Row gutter={[16, 16]}>
           {filteredProducts.map((product) => (
             <Col {...getGridCols()} key={product.id}>
@@ -316,22 +311,6 @@ const Home = () => {
           ))}
         </Row>
 
-        {/* Botón cargar más */}
-        {filteredProducts.length > 0 && (
-          <div style={{ textAlign: "center", marginTop: "32px" }}>
-            <Button
-              type="primary"
-              size="large"
-              style={{
-                borderRadius: "8px",
-                padding: "0 32px",
-                fontWeight: "500",
-              }}
-            >
-              Cargar más productos
-            </Button>
-          </div>
-        )}
       </div>
     </MainLayout>
   );

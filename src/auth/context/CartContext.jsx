@@ -1,4 +1,3 @@
-// contexts/CartContext.js
 import React, { createContext, useContext, useReducer, useEffect } from "react";
 import { message } from "antd";
 import { AuthContext } from "./AuthContext";
@@ -46,7 +45,6 @@ const cartReducer = (state, action) => {
       const items = action.payload || [];
       // Verificar que items sea un array
       if (!Array.isArray(items)) {
-        console.warn("Expected items to be an array, received:", items);
         return {
           ...state,
           items: [],
@@ -97,7 +95,6 @@ const cartReducer = (state, action) => {
             : item
         );
       } else {
-        // Si es nuevo producto, agregarlo
         newItems = [...state.items, newItem];
       }
 
@@ -241,11 +238,9 @@ export const CartProvider = ({ children }) => {
     try {
       const data = await authenticatedFetch(`${endPoint.baseURL}/cart`);
 
-      // CORRECCIÓN: Pasar solo los items, no todo el objeto data
       const items = data.items || [];
       dispatch({ type: CART_ACTIONS.LOAD_CART, payload: items });
     } catch (error) {
-      console.error("Error loading cart:", error);
       dispatch({ type: CART_ACTIONS.SET_ERROR, payload: error.message });
       message.error("Error al cargar el carrito");
     }
@@ -272,13 +267,10 @@ export const CartProvider = ({ children }) => {
         }
       );
 
-      // En lugar de actualizar localmente, recargar todo el carrito
-      // Esto garantiza que tengas todos los IDs correctos
       await loadCart();
 
       message.success(`${product.descripcion} agregado al carrito`);
     } catch (error) {
-      console.error("Error adding to cart:", error);
       dispatch({ type: CART_ACTIONS.SET_ERROR, payload: error.message });
       message.error("Error al agregar producto al carrito");
     }
@@ -312,7 +304,6 @@ export const CartProvider = ({ children }) => {
         payload: { itemId, cantidad },
       });
     } catch (error) {
-      console.error("Error updating quantity:", error);
       dispatch({ type: CART_ACTIONS.SET_ERROR, payload: error.message });
       message.error("Error al actualizar cantidad");
     }
@@ -341,7 +332,6 @@ export const CartProvider = ({ children }) => {
 
       message.info("Producto removido del carrito");
     } catch (error) {
-      console.error("Error removing from cart:", error);
       dispatch({ type: CART_ACTIONS.SET_ERROR, payload: error.message });
       message.error("Error al remover producto");
     }
@@ -364,7 +354,6 @@ export const CartProvider = ({ children }) => {
       dispatch({ type: CART_ACTIONS.CLEAR_CART });
       message.info("Carrito limpiado");
     } catch (error) {
-      console.error("Error clearing cart:", error);
       dispatch({ type: CART_ACTIONS.SET_ERROR, payload: error.message });
       message.error("Error al limpiar carrito");
     }

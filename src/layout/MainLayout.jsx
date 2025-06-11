@@ -82,13 +82,11 @@ const MainLayout = ({ children }) => {
       setLoginModalVisible(false);
       message.success("¡Bienvenido!");
     } catch (error) {
-      console.error("Error en login:", error);
       message.error(error.message || "Error al iniciar sesión");
       throw error;
     }
   };
 
-  // Función para llamar al endpoint de registro
   const handleRegister = async (values) => {
     try {
       const response = await fetch(`${endPoint.baseURLAuth}/register`, {
@@ -111,14 +109,12 @@ const MainLayout = ({ children }) => {
         "¡Cuenta creada exitosamente! Ahora puedes iniciar sesión."
       );
 
-      // Automáticamente abre el modal de login después del registro exitoso
       setTimeout(() => {
         setLoginModalVisible(true);
       }, 500);
     } catch (error) {
-      console.error("Error en registro:", error);
       message.error(error.message || "Error al crear la cuenta");
-      throw error; // Re-lanza el error para que lo maneje el modal
+      throw error; 
     }
   };
 
@@ -131,7 +127,6 @@ const MainLayout = ({ children }) => {
       }
       message.success("Sesión cerrada correctamente");
     } catch (error) {
-      console.error("Error en logout:", error);
       message.error("Error al cerrar sesión");
     }
   };

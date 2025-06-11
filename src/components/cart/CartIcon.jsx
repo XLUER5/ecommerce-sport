@@ -1,4 +1,3 @@
-// components/cart/CartIcon.js
 import React, { useState } from "react";
 import { Badge, Button, Tooltip } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";

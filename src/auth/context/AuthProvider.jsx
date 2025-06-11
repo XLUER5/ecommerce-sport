@@ -47,7 +47,6 @@ export const AuthProvider = ({ children }) => {
       const dataResponse = await response.json();
 
       if (response.ok) {
-        // Ajuste para tu formato de respuesta
         const { token, type, ...userData } = dataResponse;
 
         const action = {
@@ -69,7 +68,6 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem("data-ecommerce");
       }
     } catch (error) {
-      console.error("Auto login failed:", error);
       const action = {
         type: types.logout,
       };

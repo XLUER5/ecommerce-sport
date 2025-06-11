@@ -1,5 +1,3 @@
-// src/menu/context/MenuContext.jsx
-
 import { createContext, useContext, useState, useEffect } from "react";
 import { endPoint } from "../../config/config";
 import { AuthContext } from "../../auth/context/AuthContext";
@@ -124,7 +122,6 @@ export const MenuProvider = ({ children }) => {
 
       setMenuItems(menuOrganizado);
     } catch (error) {
-      console.error("Error fetching menu:", error);
       setError(error.message);
       setMenuItems([]);
     } finally {

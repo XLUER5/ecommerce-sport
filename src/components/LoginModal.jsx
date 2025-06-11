@@ -8,6 +8,8 @@ import {
   EyeInvisibleOutlined,
   EyeTwoTone,
 } from "@ant-design/icons";
+import Swal from "sweetalert2";
+import { endPoint } from "../config/config";
 
 const { Title, Text, Link } = Typography;
 
@@ -33,7 +35,6 @@ const LoginModal = ({ visible, onCancel, onLogin, onShowRegister }) => {
       const values = await form.validateFields();
       await onLogin(values);
 
-      // El modal se cierra desde el componente padre después del login exitoso
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -81,6 +82,76 @@ const LoginModal = ({ visible, onCancel, onLogin, onShowRegister }) => {
       return Promise.reject(new Error("Contraseña requerida"));
     }
     return Promise.resolve();
+  };
+
+  const handlePasswordRecovery = async () => {
+    const { value: email } = await Swal.fire({
+      title: "Recuperar contraseña",
+      input: "email",
+      inputLabel: "Ingresa tu correo electrónico",
+      inputPlaceholder: "ejemplo@correo.com",
+      confirmButtonText: "Enviar",
+      showCancelButton: true,
+      cancelButtonText: "Cancelar",
+      inputValidator: (value) => {
+        if (!value) {
+          return "Por favor ingresa tu correo";
+        }
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(value)) {
+          return "Correo inválido";
+        }
+        return null;
+      },
+    });
+
+    if (email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        Swal.fire({
+          icon: "error",
+          title: "Correo inválido",
+          text: "Por favor ingresa un correo válido.",
+          confirmButtonText: "Cerrar",
+        });
+        return;
+      }
+      try {
+        const response = await fetch(
+          endPoint.baseURL + "/users/password-recovery",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email }),
+          }
+        );
+
+        if (response.ok) {
+          Swal.fire({
+            icon: "success",
+            title: "¡Listo!",
+            text: "Se ha restablecido la contraseña",
+            confirmButtonText: "Aceptar",
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "No se pudo restablecer la contraseña. Intenta más tarde.",
+            confirmButtonText: "Cerrar",
+          });
+        }
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "No se pudo restablecer la contraseña. Intenta más tarde.",
+          confirmButtonText: "Cerrar",
+        });
+      }
+    }
   };
 
   return (
@@ -197,8 +268,7 @@ const LoginModal = ({ visible, onCancel, onLogin, onShowRegister }) => {
           <Link
             style={{ fontSize: 13 }}
             onClick={() => {
-              console.log("Redirigir a recuperación de contraseña");
-              // Aquí puedes implementar la funcionalidad de recuperación de contraseña
+              handlePasswordRecovery();
             }}
           >
             ¿Olvidaste tu contraseña?
